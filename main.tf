@@ -13,7 +13,7 @@ resource "aws_sqs_queue" "terraform_queue" {
 
 resource "aws_sqs_queue" "terraform_fifo_queue" {
   count                       = "${ var.fifo_queue ? 1 : 0}"
-  name                        = "terraform-example-queue.fifo"
+  name                        = "${var.name}"
   fifo_queue                  = "${var.fifo_queue}"
   content_based_deduplication = "${var.content_based_deduplication}"
   delay_seconds               = "${var.delay_seconds}"
@@ -27,7 +27,7 @@ resource "aws_sqs_queue" "terraform_fifo_queue" {
 
 resource "aws_sqs_queue" "terraform_sse_queue" {
   count                             = "${var.has_sse ? 1 : 0}"
-  name                              = "terraform-example-queue"
+  name                              = "${var.name}"
   kms_master_key_id                 = "${var.kms_master_key_id}"
   kms_data_key_reuse_period_seconds = "${var.kms_data_key_reuse_period_seconds}"
   delay_seconds                     = "${var.delay_seconds}"
